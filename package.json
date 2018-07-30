@@ -14,12 +14,13 @@
     "prepublishOnly": "npm run-script generate-doc-coverage && npm run-script generate-doc-tests",
     "generate-doc-coverage": "nyc report --reporter=html --report-dir=./docs/coverage",
     "generate-doc-tests": "mocha 'test.js' --reporter mochawesome --reporter-options reportDir=docs/tests,reportFilename=index,showHooks=always",
-    "test": "nyc mocha 'test.js'"
+    "test": "syntax-check && nyc mocha 'test.js'"
   },
   "dependencies": {
     "mysql": "2.16.0"
   },
   "devDependencies": {
+    "@superhero/syntax-check": "0.0.1",
     "mocha": "5.1.0",
     "mochawesome": "3.0.2",
     "chai": "4.1.2",
