@@ -4,12 +4,10 @@ describe('MySQL test', async () =>
   expect  = require('chai').expect,
   context = require('mochawesome/addContext')
 
-  before(function(done)
+  before(function()
   {
     context(this, { title:'context', value:'placeholder' })
   })
-
-  after(() => server.close())
 
   it('placeholder test', () =>
   {
