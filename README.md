@@ -37,4 +37,4 @@ mysql       = new MySQL(connections, host, user, pass, filePath),
 result      = await mysql.query('file', [ 'context' ])
 ```
 
-The example above will load a mysql connection, create a pool with 5 idle connections and query the database with the content from the `/sql/file.sql` file composed with the specified context.
+The example above will load the mysql module, create a pool with 5 idle connections and query the database with the content from the `/sql/file.sql` file composed with the specified context.
