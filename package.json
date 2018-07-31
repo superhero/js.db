@@ -1,6 +1,6 @@
 {
   "name": "@superhero/mysql",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Mysql wrapper",
   "repository": "git@github.com:superhero/js.mysql.git",
   "main": "index.js",

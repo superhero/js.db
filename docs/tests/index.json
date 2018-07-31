@@ -5,8 +5,8 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2018-07-31T15:47:51.783Z",
-    "end": "2018-07-31T15:47:51.788Z",
+    "start": "2018-07-31T16:14:16.234Z",
+    "end": "2018-07-31T16:14:16.239Z",
     "duration": 5,
     "testsRegistered": 1,
     "passPercent": 100,
@@ -19,7 +19,7 @@
     "pendingPercentClass": "danger"
   },
   "suites": {
-    "uuid": "b385fb4a-eb89-4b7e-86df-49d942636fcf",
+    "uuid": "54affdd7-9036-41c2-aecb-2470e54d751a",
     "title": "",
     "fullFile": "",
     "file": "",
@@ -28,7 +28,7 @@
     "tests": [],
     "suites": [
       {
-        "uuid": "1984b8ac-6d9a-459e-864a-0f331e106c6d",
+        "uuid": "f9e879ef-425a-4ea8-a663-d9ea3cd73637",
         "title": "MySQL test",
         "fullFile": "/home/erik/Projects/@superhero/js.mysql/test.js",
         "file": "/test.js",
@@ -37,7 +37,7 @@
             "title": "\"before all\" hook",
             "fullTitle": "MySQL test \"before all\" hook",
             "timedOut": false,
-            "duration": 0,
+            "duration": 1,
             "pass": false,
             "fail": false,
             "pending": false,
@@ -45,7 +45,7 @@
             "code": "context(this, { title:'context', value:'placeholder' })",
             "err": {},
             "isRoot": false,
-            "uuid": "ff407757-a4f3-4935-b365-018b66e3dca3",
+            "uuid": "93b2c545-038e-4800-ae49-9f4563f39e8e",
             "isHook": true,
             "skipped": false
           }
@@ -56,7 +56,7 @@
             "title": "placeholder test",
             "fullTitle": "MySQL test placeholder test",
             "timedOut": false,
-            "duration": 0,
+            "duration": 1,
             "state": "passed",
             "speed": "fast",
             "pass": true,
@@ -65,19 +65,19 @@
             "code": "expect(1).to.be.equal(1)",
             "err": {},
             "isRoot": false,
-            "uuid": "e15dba7b-b74d-45cb-82e6-ae1b89261170",
+            "uuid": "4058d0b8-44fa-460c-ada7-b325e49c1501",
             "isHook": false,
             "skipped": false
           }
         ],
         "suites": [],
         "passes": [
-          "e15dba7b-b74d-45cb-82e6-ae1b89261170"
+          "4058d0b8-44fa-460c-ada7-b325e49c1501"
         ],
         "failures": [],
         "pending": [],
         "skipped": [],
-        "duration": 0,
+        "duration": 1,
         "root": false,
         "rootEmpty": false,
         "_timeout": 2000

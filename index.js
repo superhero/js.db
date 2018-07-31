@@ -1,24 +1,27 @@
 const
 Transaction = require('./transaction'),
 util        = require('util'),
-mysql       = require('mysql'),
-path        = require('path'),
 fs          = require('fs'),
 promisify   = util.promisify,
 readFile    = promisify(fs.readFile)
 
 module.exports = class MySQL
 {
-  static from(connectionLimit, host, user, password, sqlPath)
+  static from(connections, host, user, pass, sqlPath)
   {
-    const pool = mysql.createPool({ connectionLimit, host, user, password })
+    const pool = MySQL.createPool(connectionLimit, host, user, password)
     return new MySQL(pool, sqlPath)
+  }
+
+  static createPool(connectionLimit, host, user, password)
+  {
+    return require('mysql').createPool({connectionLimit, host, user, password})
   }
 
   constructor(pool, sqlPath)
   {
     this.pool       = pool
-    this.sqlPath    = path.normalize(sqlPath) + '/'
+    this.sqlPath    = require('path').normalize(sqlPath) + '/'
     this._query     = promisify(pool.query.bind(pool))
     this.templates  = {}
   }
@@ -26,7 +29,7 @@ module.exports = class MySQL
   async query(file, ...ctx)
   {
     const
-    template = await this.getTemplate(file),
+    template = await MySQL.getTemplate(file),
     response = await this._query(template, ...ctx)
 
     return response
@@ -37,7 +40,7 @@ module.exports = class MySQL
     const
     getConnection = promisify(this.pool.getConnection.bind(this.pool)),
     connection    = await getConnection(),
-    transaction   = new Transaction(this, connection)
+    transaction   = new Transaction(this.getTemplate.bind(this), connection)
 
     await transaction.query('START TRANSACTION')
 

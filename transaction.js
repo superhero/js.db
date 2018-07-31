@@ -2,11 +2,11 @@ const promisify = require('util').promisify
 
 module.exports = class
 {
-  constructor(gateway, connection)
+  constructor(getTemplate, connection)
   {
-    this.gateway    = gateway
-    this.connection = connection
-    this._query     = promisify(connection.query.bind(connection))
+    this.getTemplate  = getTemplate
+    this.connection   = connection
+    this._query       = promisify(connection.query.bind(connection))
   }
 
   createTransaction()
@@ -19,7 +19,7 @@ module.exports = class
   async query(file, ...ctx)
   {
     const
-    template = await this.gateway.getTemplate(file),
+    template = await this.getTemplate(file),
     response = await this._query(template, ...ctx)
 
     return response
