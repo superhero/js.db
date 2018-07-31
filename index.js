@@ -1,25 +1,25 @@
 const
 Transaction = require('./transaction'),
-path        = require('path'),
 util        = require('util'),
+mysql       = require('mysql'),
+path        = require('path'),
 fs          = require('fs'),
 promisify   = util.promisify,
 readFile    = promisify(fs.readFile)
 
-module.exports = class
+module.exports = class MySQL
 {
-  get pool()
+  static from(connectionLimit, host, user, password, sqlPath)
   {
-    return this._pool
-    ? this._pool
-    : this._pool = require('mysql').createPool(this.settings)
+    const pool = mysql.createPool({ connectionLimit, host, user, password })
+    return new MySQL(pool, sqlPath)
   }
 
-  constructor(connectionLimit, host, user, password, sqlPath)
+  constructor(pool, sqlPath)
   {
-    this.settings   = { connectionLimit, host, user, password }
+    this.pool       = pool
     this.sqlPath    = path.normalize(sqlPath) + '/'
-    this._query     = promisify(this.pool.query.bind(this.pool))
+    this._query     = promisify(pool.query.bind(pool))
     this.templates  = {}
   }
 
