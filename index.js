@@ -7,51 +7,51 @@ readFile    = promisify(fs.readFile)
 
 module.exports = class MySQL
 {
-  static from(connections, host, user, pass, sqlPath)
+  constructor(adaptor, sqlPath)
   {
-    const pool = MySQL.createPool(connectionLimit, host, user, password)
-    return new MySQL(pool, sqlPath)
-  }
-
-  static createPool(connectionLimit, host, user, password)
-  {
-    return require('mysql').createPool({connectionLimit, host, user, password})
-  }
-
-  constructor(pool, sqlPath)
-  {
-    this.pool       = pool
-    this.sqlPath    = require('path').normalize(sqlPath) + '/'
-    this._query     = promisify(pool.query.bind(pool))
-    this.templates  = {}
+    this.adaptor = adaptor
+    this.sqlPath = require('path').normalize(sqlPath) + '/'
+    this.queries = {}
   }
 
   async query(file, ...ctx)
   {
     const
-    template = await MySQL.getTemplate(file),
-    response = await this._query(template, ...ctx)
+    query     = await this.getQuery(file),
+    response  = await this.adaptor.query(query, ...ctx)
 
     return response
   }
 
   async createTransaction()
   {
-    const
-    getConnection = promisify(this.pool.getConnection.bind(this.pool)),
-    connection    = await getConnection(),
-    transaction   = new Transaction(this.getTemplate.bind(this), connection)
+    const transaction = this.adaptor.createTransaction()
 
     await transaction.query('START TRANSACTION')
 
-    return transaction
+    return new Proxy(transaction,
+    {
+      get: (target, property) =>
+      {
+        return property !== 'query'
+        ? target[property]
+        : (file, ...ctx) =>
+        {
+          const
+          query     = await this.getQuery(file),
+          response  = await transaction.query(query, ...ctx)
+
+          return response
+        }
+      }
+    })
   }
 
-  async getTemplate(file)
+  async getQuery(file)
   {
-    const template = file in this.templates
-    ? this.templates[file]
-    : this.templates[file] = await readFile(this.sqlPath + file + '.sql')
-    return template.toString()
+    const query = file in this.queries
+    ? this.queries[file]
+    : this.queries[file] = await readFile(this.sqlPath + file + '.sql')
+    return query.toString()
   }
 }

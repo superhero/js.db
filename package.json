@@ -1,8 +1,8 @@
 {
-  "name": "@superhero/mysql",
-  "version": "0.0.3",
-  "description": "Mysql wrapper",
-  "repository": "git@github.com:superhero/js.mysql.git",
+  "name": "@superhero/orm",
+  "version": "0.0.2",
+  "description": "ORM",
+  "repository": "git@github.com:superhero/js.orm.git",
   "main": "index.js",
   "license": "MIT",
   "author": {
@@ -16,14 +16,12 @@
     "generate-doc-tests": "mocha 'test.js' --reporter mochawesome --reporter-options reportDir=docs/tests,reportFilename=index,showHooks=always",
     "test": "syntax-check && nyc mocha 'test.js'"
   },
-  "dependencies": {
-    "mysql": "2.16.0"
-  },
   "devDependencies": {
     "@superhero/syntax-check": "0.0.1",
     "mocha": "5.1.0",
     "mochawesome": "3.0.2",
     "chai": "4.1.2",
-    "nyc": "11.7.1"
+    "nyc": "11.7.1",
+    "mysql": "2.16.0"
   }
 }
