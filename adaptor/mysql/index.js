@@ -2,15 +2,10 @@ const Transaction = require('./transaction')
 
 module.exports = class MySqlAdaptor
 {
-  static from(connectionLimit, host, user, password)
+  static from(mysql, connectionLimit, host, user, password)
   {
-    const pool = MySqlAdaptor.createPool(connectionLimit, host, user, password)
+    const pool = mysql.createPool({connectionLimit, host, user, password})
     return new MySqlAdaptor(pool)
-  }
-
-  static createPool(connectionLimit, host, user, password)
-  {
-    return require('mysql').createPool({connectionLimit, host, user, password})
   }
 
   constructor(pool)
