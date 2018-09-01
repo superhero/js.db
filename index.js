@@ -35,7 +35,7 @@ module.exports = class MySQL
       {
         return property !== 'query'
         ? target[property]
-        : (file, ...ctx) =>
+        : async (file, ...ctx) =>
         {
           const
           query     = await this.getQuery(file),
