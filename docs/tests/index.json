@@ -5,8 +5,8 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2018-09-01T15:52:44.689Z",
-    "end": "2018-09-01T15:52:44.695Z",
+    "start": "2018-09-01T21:26:56.311Z",
+    "end": "2018-09-01T21:26:56.317Z",
     "duration": 6,
     "testsRegistered": 1,
     "passPercent": 100,
@@ -19,7 +19,7 @@
     "pendingPercentClass": "danger"
   },
   "suites": {
-    "uuid": "56f89c82-1b22-4268-85d6-7da4d81a63db",
+    "uuid": "4106584a-71f2-4369-b149-136c2ca80fbf",
     "title": "",
     "fullFile": "",
     "file": "",
@@ -28,7 +28,7 @@
     "tests": [],
     "suites": [
       {
-        "uuid": "76407073-a75a-42d8-8444-ad8ddde6d3f2",
+        "uuid": "2d9b1b38-05e6-4d40-9b3c-7f5ed0a593bb",
         "title": "MySQL test",
         "fullFile": "/home/superhero/Projects/js.orm/test.js",
         "file": "/test.js",
@@ -45,7 +45,7 @@
             "code": "context(this, { title:'context', value:'placeholder' })",
             "err": {},
             "isRoot": false,
-            "uuid": "937ebc64-5cd1-432f-81cc-51d0bf0ea78e",
+            "uuid": "45c767a2-b2b6-4538-b1c0-4481df77ccf0",
             "isHook": true,
             "skipped": false
           }
@@ -56,7 +56,7 @@
             "title": "placeholder test",
             "fullTitle": "MySQL test placeholder test",
             "timedOut": false,
-            "duration": 1,
+            "duration": 0,
             "state": "passed",
             "speed": "fast",
             "pass": true,
@@ -65,19 +65,19 @@
             "code": "expect(1).to.be.equal(1)",
             "err": {},
             "isRoot": false,
-            "uuid": "b011a0e3-83ba-4bf3-8b75-df1fd4645267",
+            "uuid": "53879aa1-c9e1-412c-b223-66a4143a3224",
             "isHook": false,
             "skipped": false
           }
         ],
         "suites": [],
         "passes": [
-          "b011a0e3-83ba-4bf3-8b75-df1fd4645267"
+          "53879aa1-c9e1-412c-b223-66a4143a3224"
         ],
         "failures": [],
         "pending": [],
         "skipped": [],
-        "duration": 1,
+        "duration": 0,
         "root": false,
         "rootEmpty": false,
         "_timeout": 2000
