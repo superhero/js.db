@@ -1,5 +1,4 @@
 const
-Transaction = require('./transaction'),
 util        = require('util'),
 fs          = require('fs'),
 promisify   = util.promisify,
