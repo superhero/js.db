@@ -4,7 +4,7 @@ fs          = require('fs'),
 promisify   = util.promisify,
 readFile    = promisify(fs.readFile)
 
-module.exports = class MySQL
+module.exports = class
 {
   constructor(adaptor, sqlPath)
   {
