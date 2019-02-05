@@ -28,15 +28,16 @@ A simple ORM implementation that reads sql queries from file.
 ```js
 const
 connections = 5,
-host        = mysql.example.com,
+host        = 'mysql.example.com',
 user        = 'root',
 pass        = 'b4real',
 filePath    = '/sql',
+mysql       = require('mysql'),
 ORM         = require('@superhero/orm'),
 Adaptor     = require('@superhero/orm/adaptor/mysql'),
-adaptor     = Adapter.from(connections, host, user, pass),
+adaptor     = Adapter.from(mysql, { connections, host, user, password }),
 orm         = new ORM(adaptor, filePath),
 result      = await orm.query('file', ['context'])
 ```
 
-The example above will load the mysql module, create a pool with 5 idle connections and query the database with the content from the `/sql/file.sql` file composed with the specified context.
+The example above will create a pool with 5 idle connections and query the database with the content from the `/sql/file.sql` file composed with the specified context.
