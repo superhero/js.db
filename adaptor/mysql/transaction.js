@@ -12,7 +12,15 @@ module.exports = class
     throw err
   }
 
-  async query(query, ...ctx)
+
+  query(...args)
+  {
+    return this._query(...args)
+  }
+
+  //We are forced to have a different query function to be able to use it from inside
+  //the class without the Proxy making interferences
+  async _query(query, ...ctx)
   {
     return new Promise((accept, reject) =>
       this.connection.query(query, ...ctx, (error, response) =>
@@ -23,13 +31,13 @@ module.exports = class
 
   async commit()
   {
-    await this.query('COMMIT')
+    await this._query('COMMIT')
     this.connection.release()
   }
 
   async rollback()
   {
-    await this.query('ROLLBACK')
+    await this._query('ROLLBACK')
     this.connection.release()
   }
 }
