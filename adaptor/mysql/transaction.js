@@ -23,13 +23,13 @@ module.exports = class
 
   async commit()
   {
-    await this.connection.query('COMMIT')
+    await this.query('COMMIT')
     this.connection.release()
   }
 
   async rollback()
   {
-    await this.connection.query('ROLLBACK')
+    await this.query('ROLLBACK')
     this.connection.release()
   }
 }
