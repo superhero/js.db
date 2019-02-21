@@ -1,6 +1,6 @@
 {
   "name": "@superhero/orm",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "ORM",
   "repository": "git@github.com:superhero/js.orm.git",
   "main": "index.js",

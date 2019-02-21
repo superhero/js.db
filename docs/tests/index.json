@@ -5,8 +5,8 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2018-09-01T21:26:56.311Z",
-    "end": "2018-09-01T21:26:56.317Z",
+    "start": "2019-02-21T10:46:59.096Z",
+    "end": "2019-02-21T10:46:59.102Z",
     "duration": 6,
     "testsRegistered": 1,
     "passPercent": 100,
@@ -19,7 +19,7 @@
     "pendingPercentClass": "danger"
   },
   "suites": {
-    "uuid": "4106584a-71f2-4369-b149-136c2ca80fbf",
+    "uuid": "f1d5bbee-12da-4c15-bafb-fcdb2749a07f",
     "title": "",
     "fullFile": "",
     "file": "",
@@ -28,16 +28,16 @@
     "tests": [],
     "suites": [
       {
-        "uuid": "2d9b1b38-05e6-4d40-9b3c-7f5ed0a593bb",
+        "uuid": "a907b498-8cd1-4359-b428-0839f62602be",
         "title": "MySQL test",
-        "fullFile": "/home/superhero/Projects/js.orm/test.js",
+        "fullFile": "/home/erik/Projects/@superhero/js.orm/test.js",
         "file": "/test.js",
         "beforeHooks": [
           {
             "title": "\"before all\" hook",
             "fullTitle": "MySQL test \"before all\" hook",
             "timedOut": false,
-            "duration": 0,
+            "duration": 1,
             "pass": false,
             "fail": false,
             "pending": false,
@@ -45,7 +45,7 @@
             "code": "context(this, { title:'context', value:'placeholder' })",
             "err": {},
             "isRoot": false,
-            "uuid": "45c767a2-b2b6-4538-b1c0-4481df77ccf0",
+            "uuid": "2439abc7-2189-4ad9-b1d6-70a6dbf85e81",
             "isHook": true,
             "skipped": false
           }
@@ -56,7 +56,7 @@
             "title": "placeholder test",
             "fullTitle": "MySQL test placeholder test",
             "timedOut": false,
-            "duration": 0,
+            "duration": 1,
             "state": "passed",
             "speed": "fast",
             "pass": true,
@@ -65,19 +65,19 @@
             "code": "expect(1).to.be.equal(1)",
             "err": {},
             "isRoot": false,
-            "uuid": "53879aa1-c9e1-412c-b223-66a4143a3224",
+            "uuid": "f58eab97-0ccf-43a3-a876-c30acbc16dcb",
             "isHook": false,
             "skipped": false
           }
         ],
         "suites": [],
         "passes": [
-          "53879aa1-c9e1-412c-b223-66a4143a3224"
+          "f58eab97-0ccf-43a3-a876-c30acbc16dcb"
         ],
         "failures": [],
         "pending": [],
         "skipped": [],
-        "duration": 0,
+        "duration": 1,
         "root": false,
         "rootEmpty": false,
         "_timeout": 2000
@@ -92,5 +92,5 @@
     "rootEmpty": true,
     "_timeout": 2000
   },
-  "copyrightYear": 2018
+  "copyrightYear": 2019
 }
