@@ -33,11 +33,9 @@ module.exports = class MySqlAdaptor
 
   async createTransaction()
   {
-    const
-    connection  = await this.getConnection(),
-    transaction = new Transaction(connection)
-
-    await transaction.query('START TRANSACTION')
+    const connection  = await this.getConnection()
+    await connection.query('START TRANSACTION')
+    const transaction = new Transaction(connection)
 
     return transaction
   }

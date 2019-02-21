@@ -24,9 +24,7 @@ module.exports = class
 
   async createTransaction()
   {
-    const transaction = this.adaptor.createTransaction()
-
-    await transaction.query('START TRANSACTION')
+    const transaction = await this.adaptor.createTransaction()
 
     return new Proxy(transaction,
     {
