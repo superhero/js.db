@@ -1,8 +1,8 @@
 {
-  "name": "@superhero/orm",
-  "version": "0.0.8",
-  "description": "ORM",
-  "repository": "git@github.com:superhero/js.orm.git",
+  "name": "@superhero/db",
+  "version": "0.0.1",
+  "description": "Db interaction, designed to separate queries from the source code",
+  "repository": "git@github.com:superhero/js.db.git",
   "main": "index.js",
   "license": "MIT",
   "author": {
@@ -14,7 +14,8 @@
     "prepublishOnly": "npm run-script generate-doc-coverage && npm run-script generate-doc-tests",
     "generate-doc-coverage": "nyc report --reporter=html --report-dir=./docs/coverage",
     "generate-doc-tests": "mocha 'test.js' --reporter mochawesome --reporter-options reportDir=docs/tests,reportFilename=index,showHooks=always",
-    "test": "syntax-check && nyc mocha 'test.js'"
+    "syntax-check": "syntax-check",
+    "test": "mocha 'test.js'"
   },
   "devDependencies": {
     "@superhero/syntax-check": "0.0.1",

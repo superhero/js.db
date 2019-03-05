@@ -6,11 +6,12 @@ readFile    = promisify(fs.readFile)
 
 module.exports = class
 {
-  constructor(adaptor, sqlPath)
+  constructor(adaptor, queryPath, fileSuffix = '')
   {
-    this.adaptor = adaptor
-    this.sqlPath = require('path').normalize(sqlPath) + '/'
-    this.queries = {}
+    this.adaptor    = adaptor
+    this.queryPath  = require('path').normalize(queryPath) + '/'
+    this.fileSuffix = fileSuffix
+    this.queries    = {}
   }
 
   async query(file, ...ctx)
@@ -48,7 +49,7 @@ module.exports = class
   {
     const query = file in this.queries
     ? this.queries[file]
-    : this.queries[file] = await readFile(this.sqlPath + file + '.sql')
+    : this.queries[file] = await readFile(this.queryPath + file + this.fileSuffix)
     return query.toString()
   }
 }

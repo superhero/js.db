@@ -1,13 +1,7 @@
-const Transaction = require('./transaction')
+const AdaptorMySqlTransaction = require('./transaction')
 
-module.exports = class MySqlAdaptor
+class AdaptorMySql
 {
-  static from(mysql, config)
-  {
-    const pool = mysql.createPool(config)
-    return new MySqlAdaptor(pool)
-  }
-
   constructor(pool)
   {
     this.pool = pool
@@ -35,8 +29,10 @@ module.exports = class MySqlAdaptor
   {
     const connection  = await this.getConnection()
     await connection.query('START TRANSACTION')
-    const transaction = new Transaction(connection)
+    const transaction = new AdaptorMySqlTransaction(connection)
 
     return transaction
   }
 }
+
+module.exports = AdaptorMySql

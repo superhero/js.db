@@ -1,16 +1,16 @@
-# ORM
+# DB
 
 Licence: [MIT](https://opensource.org/licenses/MIT)
 
 ---
 
-[![npm version](https://badge.fury.io/js/%40superhero%2Form.svg)](https://badge.fury.io/js/%40superhero%2Form)
+[![npm version](https://badge.fury.io/js/%40superhero%2Fdb.svg)](https://badge.fury.io/js/%40superhero%2Fdb)
 
-A simple ORM implementation that reads sql queries from file.
+A simple DB interface implementation that reads queries from a file, segregating your code from your queries.
 
 ## Install
 
-`npm install @superhero/orm`
+`npm install @superhero/db`
 
 ...or just set the dependency in your `package.json` file:
 
@@ -18,7 +18,7 @@ A simple ORM implementation that reads sql queries from file.
 {
   "dependencies":
   {
-    "@superhero/orm": "*"
+    "@superhero/db": "*"
   }
 }
 ```
@@ -32,12 +32,13 @@ host        = 'mysql.example.com',
 user        = 'root',
 pass        = 'b4real',
 filePath    = '/sql',
+fileSuffix  = '.sql',
 mysql       = require('mysql'),
-ORM         = require('@superhero/orm'),
-Adaptor     = require('@superhero/orm/adaptor/mysql'),
+Db          = require('@superhero/db'),
+Adaptor     = require('@superhero/db/adaptor/mysql'),
 adaptor     = Adapter.from(mysql, { connections, host, user, password }),
-orm         = new ORM(adaptor, filePath),
-result      = await orm.query('file', ['context'])
+db          = new Db(adaptor, filePath, fileSuffix),
+result      = await db.query('file', ['context'])
 ```
 
 The example above will create a pool with 5 idle connections and query the database with the content from the `/sql/file.sql` file composed with the specified context.

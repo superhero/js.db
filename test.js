@@ -1,4 +1,4 @@
-describe('MySQL test', async () =>
+describe('db test', async () =>
 {
   const
   expect  = require('chai').expect,
