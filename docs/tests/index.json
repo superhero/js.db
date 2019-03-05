@@ -5,8 +5,8 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2019-02-21T10:46:59.096Z",
-    "end": "2019-02-21T10:46:59.102Z",
+    "start": "2019-03-05T16:58:48.618Z",
+    "end": "2019-03-05T16:58:48.624Z",
     "duration": 6,
     "testsRegistered": 1,
     "passPercent": 100,
@@ -19,7 +19,7 @@
     "pendingPercentClass": "danger"
   },
   "suites": {
-    "uuid": "f1d5bbee-12da-4c15-bafb-fcdb2749a07f",
+    "uuid": "8cd17ba8-d29b-467f-a54d-9d24dc24f9da",
     "title": "",
     "fullFile": "",
     "file": "",
@@ -28,14 +28,14 @@
     "tests": [],
     "suites": [
       {
-        "uuid": "a907b498-8cd1-4359-b428-0839f62602be",
-        "title": "MySQL test",
-        "fullFile": "/home/erik/Projects/@superhero/js.orm/test.js",
+        "uuid": "8bfa8fc4-2cb1-4685-925d-e3e53abe33e5",
+        "title": "db test",
+        "fullFile": "/home/erik/Projects/@superhero/js.db/test.js",
         "file": "/test.js",
         "beforeHooks": [
           {
             "title": "\"before all\" hook",
-            "fullTitle": "MySQL test \"before all\" hook",
+            "fullTitle": "db test \"before all\" hook",
             "timedOut": false,
             "duration": 1,
             "pass": false,
@@ -45,7 +45,7 @@
             "code": "context(this, { title:'context', value:'placeholder' })",
             "err": {},
             "isRoot": false,
-            "uuid": "2439abc7-2189-4ad9-b1d6-70a6dbf85e81",
+            "uuid": "3325666f-4428-4a78-bc64-eac69fd25462",
             "isHook": true,
             "skipped": false
           }
@@ -54,7 +54,7 @@
         "tests": [
           {
             "title": "placeholder test",
-            "fullTitle": "MySQL test placeholder test",
+            "fullTitle": "db test placeholder test",
             "timedOut": false,
             "duration": 1,
             "state": "passed",
@@ -65,14 +65,14 @@
             "code": "expect(1).to.be.equal(1)",
             "err": {},
             "isRoot": false,
-            "uuid": "f58eab97-0ccf-43a3-a876-c30acbc16dcb",
+            "uuid": "455c3a84-078a-4f65-adfc-5edd171f28b6",
             "isHook": false,
             "skipped": false
           }
         ],
         "suites": [],
         "passes": [
-          "f58eab97-0ccf-43a3-a876-c30acbc16dcb"
+          "455c3a84-078a-4f65-adfc-5edd171f28b6"
         ],
         "failures": [],
         "pending": [],
