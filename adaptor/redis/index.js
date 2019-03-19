@@ -2,15 +2,15 @@ const TransactionsNotAllowed = require('./error/transactions-not-allowed')
 
 class AdaptorRedis
 {
-  constructor(client)
+  constructor(redis)
   {
-    this.client = client
+    this.redis = redis
   }
 
   query(query, ...ctx)
   {
     return new Promise((accept, reject) =>
-      this.client.send_command(query, ctx, (error, response) =>
+      this.redis.send_command(query, ctx, (error, response) =>
         error
         ? reject(error)
         : accept(response)))
