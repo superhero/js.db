@@ -4,7 +4,7 @@ fs          = require('fs'),
 promisify   = util.promisify,
 readFile    = promisify(fs.readFile)
 
-module.exports = class
+class Db
 {
   constructor(adaptor, queryPath, fileSuffix = '')
   {
@@ -12,6 +12,11 @@ module.exports = class
     this.queryPath  = require('path').normalize(queryPath) + '/'
     this.fileSuffix = fileSuffix
     this.queries    = {}
+  }
+
+  async close()
+  {
+    await this.adaptor.close()
   }
 
   async query(file, ...ctx)
@@ -53,3 +58,5 @@ module.exports = class
     return query.toString()
   }
 }
+
+module.exports = Db

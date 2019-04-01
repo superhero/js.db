@@ -1,6 +1,6 @@
 const NestedTransactionsNotAllowed = require('./error/nested-transactions-not-allowed')
 
-class AdaptorMySqlTransaction
+class AdapterMySqlTransaction
 {
   constructor(connection)
   {
@@ -41,4 +41,4 @@ class AdaptorMySqlTransaction
   }
 }
 
-module.exports = AdaptorMySqlTransaction
+module.exports = AdapterMySqlTransaction

@@ -1,6 +1,6 @@
 const TransactionsNotAllowed = require('./error/transactions-not-allowed')
 
-class AdaptorInfluxDb
+class AdapterInfluxDb
 {
   constructor(influxdb, escape)
   {
@@ -29,6 +29,11 @@ class AdaptorInfluxDb
   {
     throw new TransactionsNotAllowed('InfluxDb transactions are not available')
   }
+
+  close()
+  {
+    // no need to close an http request, which influxdb is based on...
+  }
 }
 
-module.exports = AdaptorInfluxDb
+module.exports = AdapterInfluxDb

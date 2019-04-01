@@ -1,6 +1,6 @@
 const TransactionsNotAllowed = require('./error/transactions-not-allowed')
 
-class AdaptorRedis
+class AdapterRedis
 {
   constructor(redis)
   {
@@ -20,6 +20,11 @@ class AdaptorRedis
   {
     throw new TransactionsNotAllowed('Redis transactions are not available')
   }
+
+  close()
+  {
+    this.redis.end()
+  }
 }
 
-module.exports = AdaptorRedis
+module.exports = AdapterRedis
