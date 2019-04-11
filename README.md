@@ -36,7 +36,8 @@ fileSuffix      = '.sql',
 mysql           = require('mysql'),
 Db              = require('@superhero/db'),
 AdapterFactory  = require('@superhero/db/adapter/mysql/factory'),
-adapter         = new AdapterFactory().create(mysql, { connections, host, user, password }),
+adapterFactory  = new AdapterFactory(),
+adapter         = adapterFactory.create(mysql, { connections, host, user, password }),
 db              = new Db(adapter, filePath, fileSuffix),
 result          = await db.query('file', ['context'])
 ```
