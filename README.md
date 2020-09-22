@@ -23,14 +23,14 @@ A simple DB interface implementation that reads queries from a file, segregating
 }
 ```
 
-## Example
+## Example | MySql
 
 ```js
 const
 connections     = 5,
 host            = 'mysql.example.com',
 user            = 'root',
-pass            = 'b4real',
+password        = 'b4real',
 filePath        = '/sql',
 fileSuffix      = '.sql',
 mysql           = require('mysql'),
@@ -43,3 +43,25 @@ result          = await db.query('file', ['context'])
 ```
 
 The example above will create a pool with 5 idle connections and query the database with the content from the `/sql/file.sql` file composed with the specified context.
+
+
+## Example | Postgres
+
+```js
+const
+host            = 'postgres.example.com',
+user            = 'root',
+database        = 'stuff',
+password        = 'b4real',
+filePath        = '/sql',
+fileSuffix      = '.sql',
+pg              = require('pg'),
+Db              = require('@superhero/db'),
+AdapterFactory  = require('@superhero/db/adapter/postgres/factory'),
+adapterFactory  = new AdapterFactory(),
+adapter         = adapterFactory.create(pg, { host, user, password, database }),
+db              = new Db(adapter, filePath, fileSuffix),
+result          = await db.query('file', ['context'])
+```
+
+The example above will create a pool and query the database with the content from the `/sql/file.sql` file composed with the specified context.
