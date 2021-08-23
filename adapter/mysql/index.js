@@ -9,20 +9,28 @@ class AdapterMySql
 
   query(query, ...ctx)
   {
-    return new Promise((accept, reject) =>
+    const resolve = (accept, reject, i = 0) =>
       this.pool.query(query, ...ctx, (error, response) =>
         error
-        ? reject(error)
-        : accept(response)))
+        ? error.code === 'ETIMEDOUT' && i < 3
+          ? resolve(accept, reject, ++i)
+          : reject(error)
+        : accept(response))
+
+    return new Promise(resolve)
   }
 
   getConnection()
   {
-    return new Promise((accept, reject) =>
+    const resolve = (accept, reject, i = 0) =>
       this.pool.getConnection((error, connection) =>
         error
-        ? reject(error)
-        : accept(connection)))
+        ? error.code === 'ETIMEDOUT' && i < 3
+          ? resolve(accept, reject, ++i)
+          : reject(error)
+        : accept(connection))
+
+    return new Promise(resolve)
   }
 
   async createTransaction()
