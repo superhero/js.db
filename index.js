@@ -1,8 +1,8 @@
 const
-util        = require('util'),
-fs          = require('fs'),
-promisify   = util.promisify,
-readFile    = promisify(fs.readFile)
+  util        = require('util'),
+  fs          = require('fs'),
+  promisify   = util.promisify,
+  readFile    = promisify(fs.readFile)
 
 class Db
 {
@@ -22,8 +22,18 @@ class Db
   async query(file, ...ctx)
   {
     const
-    query     = await this.getQuery(file),
-    response  = await this.adaptor.query(query, ...ctx)
+      query     = await this.getQuery(file),
+      response  = await this.adaptor.query(query, ...ctx)
+
+    return response
+  }
+
+  async formatQuery(file, formatCtx, sqlCtx)
+  {
+    const
+      query           = await this.getQuery(file),
+      formattedQuery  = util.format(query, ...formatCtx),
+      response        = await this.adaptor.query(formattedQuery, ...sqlCtx)
 
     return response
   }
