@@ -21,11 +21,16 @@ class Db
 
   async query(file, ...ctx)
   {
-    const
-      query     = await this.getQuery(file),
-      response  = await this.adaptor.query(query, ...ctx)
+    let query = await this.getQuery(file)
 
-    return response
+    for(let noEscapeReplace = query.indexOf('?%s');
+            noEscapeReplace > -1;
+            noEscapeReplace = query.indexOf('?%s'))
+    {
+      query = query.replace('?%s', ctx.shift())
+    }
+
+    return await this.adaptor.query(query, ...ctx)
   }
 
   async formatQuery(file, formatCtx, sqlCtx)
