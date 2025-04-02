@@ -1,8 +1,11 @@
 {
   "name": "@superhero/db",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Db interaction, designed to separate queries from the source code",
-  "repository": "git@github.com:superhero/js.db.git",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/superhero/js.db.git"
+  },
   "main": "index.js",
   "license": "MIT",
   "author": {

@@ -12,7 +12,7 @@ class AdapterMySql2
     const resolve = (accept, reject, i = 0) =>
       this.pool.query(query, ctx, (error, response) =>
         error
-        ? error.code === 'ETIMEDOUT' && i < 3
+        ? ['ETIMEDOUT', 'ECONNREFUSED', 'ECONNRESET'].includes(error.code) && i < 3
           ? resolve(accept, reject, ++i)
           : reject(error)
         : accept(response))
