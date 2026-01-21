@@ -38,6 +38,7 @@ class Db
     {
       const error = new Error(`DB query '${file}' failed`)
       error.code  = 'DB_QUERY_ERROR'
+      error.query = this.adaptor.getFormattedQuery?.(query, ...ctx) ?? query
       error.cause = reason
       throw error
     }
