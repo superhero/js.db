@@ -29,8 +29,18 @@ class Db
     {
       query = query.replace('?%s', ctx.shift())
     }
-
-    return await this.adaptor.query(query, ...ctx)
+  
+    try
+    {
+      return await this.adaptor.query(query, ...ctx)
+    }
+    catch(reason)
+    {
+      const error = new Error(`DB query '${file}' failed`)
+      error.code  = 'DB_QUERY_ERROR'
+      error.cause = reason
+      throw error
+    }
   }
 
   async formatQuery(file, formatCtx, sqlCtx)
@@ -56,8 +66,8 @@ class Db
         : async (file, ...ctx) =>
         {
           const
-          query     = await this.getQuery(file),
-          response  = await transaction.query(query, ...ctx)
+            query     = await this.getQuery(file),
+            response  = await transaction.query(query, ...ctx)
 
           return response
         }
