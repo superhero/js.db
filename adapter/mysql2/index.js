@@ -20,6 +20,11 @@ class AdapterMySql2
     return new Promise(resolve)
   }
 
+  getFormattedQuery(query, ...ctx)
+  {
+    return this.pool.format(query, ...ctx)
+  }
+
   getConnection()
   {
     const resolve = (accept, reject, i = 0) =>
