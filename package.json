@@ -1,6 +1,6 @@
 {
   "name": "@superhero/db",
-  "version": "1.0.1-rc.2.0",
+  "version": "1.0.1-rc.3.0",
   "description": "Db interaction, designed to separate queries from the source code",
   "repository": {
     "type": "git",
