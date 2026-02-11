@@ -49,7 +49,9 @@ class AdapterMySql2
     try
     {
       const
-        result = await connection.query('SELECT GET_LOCK(?, ?) as status', [reference, timeout]),
+        result = await new Promise((resolve, reject) =>
+          connection.query('SELECT GET_LOCK(?, ?) as status', [reference, timeout], (error, result) =>
+            error ? reject(error) : resolve(result))),
         status = result[0].status
 
       if(1 === status)
@@ -75,7 +77,9 @@ class AdapterMySql2
     }
     finally
     {
-      await connection.query('DO RELEASE_LOCK(?)', [reference])
+      await new Promise((resolve, reject) =>
+        connection.query('DO RELEASE_LOCK(?)', [reference], (error) =>
+          error ? reject(error) : resolve()))
         .then(() => connection.release())
         .catch(() => connection.end())
     }
@@ -84,7 +88,9 @@ class AdapterMySql2
   async createTransaction(connection = null)
   {
     connection = connection ?? await this.getConnection()
-    await connection.query('START TRANSACTION')
+    await new Promise((resolve, reject) =>
+      connection.query('START TRANSACTION', (error) =>
+        error ? reject(error) : resolve()))
     return new AdapterMySql2Transaction(connection)
   }
 
