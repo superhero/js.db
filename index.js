@@ -1,7 +1,7 @@
 const
   util        = require('util'),
   fs          = require('fs'),
-  os          = require('os'),
+  path        = require('path'),
   promisify   = util.promisify,
   readFile    = promisify(fs.readFile)
 
@@ -10,7 +10,7 @@ class Db
   constructor(adaptor, queryPath, fileSuffix = '')
   {
     this.adaptor    = adaptor
-    this.queryPath  = require('path').normalize(queryPath) + os.EOL
+    this.queryPath  = path.normalize(queryPath) + path.sep
     this.fileSuffix = fileSuffix
     this.queries    = {}
   }
