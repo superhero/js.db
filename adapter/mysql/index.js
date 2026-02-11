@@ -38,8 +38,9 @@ class AdapterMySql
     return new Promise(resolve)
   }
 
-  async createTransaction(connection = await this.getConnection())
+  async createTransaction(connection = null)
   {
+    connection = connection ?? await this.getConnection()
     await connection.query('START TRANSACTION')
     return new AdapterMySqlTransaction(connection)
   }

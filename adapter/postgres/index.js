@@ -19,7 +19,7 @@ class AdapterPostgres
 
   async createTransaction()
   {
-    const connection  = await this.getConnection()
+    const connection = await this.getConnection()
     await connection.query('BEGIN')
     const transaction = new AdapterPostgresTransaction(connection)
 

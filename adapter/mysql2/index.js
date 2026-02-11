@@ -42,8 +42,10 @@ class AdapterMySql2
     reference, 
     operation,
     timeout     = 10, 
-    connection  = await this.getConnection())
+    connection  = null)
   {
+    connection = connection ?? await this.getConnection()
+
     try
     {
       const
@@ -79,8 +81,9 @@ class AdapterMySql2
     }
   }
 
-  async createTransaction(connection = await this.getConnection())
+  async createTransaction(connection = null)
   {
+    connection = connection ?? await this.getConnection()
     await connection.query('START TRANSACTION')
     return new AdapterMySql2Transaction(connection)
   }
