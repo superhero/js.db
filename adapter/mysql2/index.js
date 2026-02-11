@@ -38,13 +38,51 @@ class AdapterMySql2
     return new Promise(resolve)
   }
 
-  async createTransaction()
+  async lock(
+    reference, 
+    operation,
+    timeout     = 10, 
+    connection  = await this.getConnection())
   {
-    const connection  = await this.getConnection()
-    await connection.query('START TRANSACTION')
-    const transaction = new AdapterMySql2Transaction(connection)
+    try
+    {
+      const
+        result = await connection.query('SELECT GET_LOCK(?, ?) as status', [reference, timeout]),
+        status = result[0].status
 
-    return transaction
+      if(1 === status)
+      {
+        await operation(connection)
+      }
+      else if(0 === status)
+      {
+        const error     = new Error(`advisory lock '${reference}' is busy by a different process`)
+        error.code      = 'DB_LOCK_TIMEOUT'
+        error.reference = reference
+        error.timeout   = timeout
+        throw error
+      }
+      else
+      {
+        const error     = new Error(`something is wrong with the query for the advisory lock '${reference}'`)
+        error.code      = 'E_EVENTFLOW_DB_ADVISORY_LOCK_NULL_RESULT'
+        error.reference = reference
+        error.timeout   = timeout
+        throw error
+      }
+    }
+    finally
+    {
+      await connection.query('DO RELEASE_LOCK(?)', [reference])
+        .then(() => connection.release())
+        .catch(() => connection.end())
+    }
+  }
+
+  async createTransaction(connection = await this.getConnection())
+  {
+    await connection.query('START TRANSACTION')
+    return new AdapterMySql2Transaction(connection)
   }
 
   close()

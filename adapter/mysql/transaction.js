@@ -12,14 +12,7 @@ class AdapterMySqlTransaction
     throw new NestedTransactionsNotAllowed('Nested transactions are not allowed')
   }
 
-  query(...args)
-  {
-    return this._query(...args)
-  }
-
-  // We are forced to have a different query function to be able to use it from inside
-  // the class without the Proxy making interferences
-  async _query(query, ...ctx)
+  query(query, ...ctx)
   {
     return new Promise((accept, reject) =>
       this.connection.query(query, ...ctx, (error, response) =>
@@ -30,13 +23,13 @@ class AdapterMySqlTransaction
 
   async commit()
   {
-    await this._query('COMMIT')
+    await this.query('COMMIT')
     this.connection.release()
   }
 
   async rollback()
   {
-    await this._query('ROLLBACK')
+    await this.query('ROLLBACK')
     this.connection.release()
   }
 }

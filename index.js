@@ -1,6 +1,7 @@
 const
   util        = require('util'),
   fs          = require('fs'),
+  os          = require('os'),
   promisify   = util.promisify,
   readFile    = promisify(fs.readFile)
 
@@ -9,7 +10,7 @@ class Db
   constructor(adaptor, queryPath, fileSuffix = '')
   {
     this.adaptor    = adaptor
-    this.queryPath  = require('path').normalize(queryPath) + '/'
+    this.queryPath  = require('path').normalize(queryPath) + os.EOL
     this.fileSuffix = fileSuffix
     this.queries    = {}
   }
@@ -21,14 +22,7 @@ class Db
 
   async query(file, ...ctx)
   {
-    let query = await this.getQuery(file)
-
-    for(let noEscapeReplace = query.indexOf('?%s');
-            noEscapeReplace > -1;
-            noEscapeReplace = query.indexOf('?%s'))
-    {
-      query = query.replace('?%s', ctx.shift())
-    }
+    let query = await this.getQuery(file, ctx)
   
     try
     {
@@ -36,52 +30,73 @@ class Db
     }
     catch(reason)
     {
-      const error = new Error(`DB query '${file}' failed`)
-      error.code  = 'DB_QUERY_ERROR'
-      error.query = this.adaptor.getFormattedQuery?.(query, ...ctx) ?? query
-      error.cause = reason
-      throw error
+      this._throwOnQueryError(reason, file, query, ctx)
     }
   }
 
-  async formatQuery(file, formatCtx, sqlCtx)
+  async lock(...args)
   {
-    const
-      query           = await this.getQuery(file),
-      formattedQuery  = util.format(query, ...formatCtx),
-      response        = await this.adaptor.query(formattedQuery, ...sqlCtx)
-
-    return response
+    if('lock' in this.adaptor)
+    {
+      await this.adaptor.lock(...args)
+    }
+    else
+    {
+      throw new Error('The database adapter provided does not support locking')
+    }
   }
 
-  async createTransaction()
+  async createTransaction(connection)
   {
-    const transaction = await this.adaptor.createTransaction()
+    const transaction = await this.adaptor.createTransaction(connection)
 
     return new Proxy(transaction,
     {
-      get: (target, property) =>
+      get: (target, member) =>
       {
-        return property !== 'query'
-        ? target[property]
+        return 'query' !== member
+        ? Reflect.get(target, member, target)
         : async (file, ...ctx) =>
         {
-          const
-            query     = await this.getQuery(file),
-            response  = await transaction.query(query, ...ctx)
+          const query = await this.getQuery(file, ctx)
 
-          return response
+          try
+          {
+            const method = Reflect.get(target, member, target)
+            return await Reflect.apply(method, target, [query, ...ctx])
+          }
+          catch(reason)
+          {
+            this._throwOnQueryError(reason, file, query, ctx)
+          }
         }
       }
     })
   }
 
-  async getQuery(file)
+  async getQuery(file, ctx)
   {
-    const query = file in this.queries
+    const buffer = file in this.queries
     ? this.queries[file]
     : this.queries[file] = await readFile(this.queryPath + file + this.fileSuffix)
-    return query.toString()
+
+    let query = buffer.toString()
+
+    while(ctx.length && query.indexOf('?%s') > -1)
+    {
+      query = query.replace('?%s', ctx.shift())
+    }
+
+    return query
+  }
+
+  _throwOnQueryError(reason, file, query, ctx)
+  {
+    const error = new Error(`DB query '${file}' failed`)
+    error.code  = 'DB_QUERY_ERROR'
+    error.query = this.adaptor.getFormattedQuery?.(query, ...ctx) ?? query
+    error.cause = reason
+    throw error
   }
 }
 

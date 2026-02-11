@@ -38,13 +38,10 @@ class AdapterMySql
     return new Promise(resolve)
   }
 
-  async createTransaction()
+  async createTransaction(connection = await this.getConnection())
   {
-    const connection  = await this.getConnection()
     await connection.query('START TRANSACTION')
-    const transaction = new AdapterMySqlTransaction(connection)
-
-    return transaction
+    return new AdapterMySqlTransaction(connection)
   }
 
   close()
