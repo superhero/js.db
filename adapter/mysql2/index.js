@@ -52,7 +52,7 @@ class AdapterMySql2
 
       if(1 === status)
       {
-        await operation(connection)
+        return await operation(connection)
       }
       else if(0 === status)
       {

@@ -38,7 +38,7 @@ class Db
   {
     if('lock' in this.adaptor)
     {
-      await this.adaptor.lock(...args)
+      return await this.adaptor.lock(...args)
     }
     else
     {
